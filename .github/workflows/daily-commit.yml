@@ -1,1 +1,27 @@
+name: Daily Commit
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs at 00:00 UTC every day
+  workflow_dispatch: # Allows manual triggering of the workflow
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Git config
+        run: |
+          git config --global user.name "yathrib-04"
+          git config --global user.email "teyibaaman68@gmail.com"
+
+      - name: Make a daily commit
+        run: |
+          date > daily-commit.txt
+          git add daily-commit.txt
+          git commit -m "commit change"
+          git push
 
